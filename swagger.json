@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "MongoDB Mongoose Movie API with Auth0",
-    "description": "CSE 331 W04 MongoDB Mongoose Movie API with Auth0",
+    "description": "CSE 331 W04 MongoDB Mongoose Movie API with Auth0. All routes are publicly accessible except for /db, /profile, /create, /update, and /delete - these all require an Auth0 login token..",
     "version": "1.3.0"
   },
   "host": "https://cse341-spring23-w08-movies-shared.onrender.com",
@@ -139,7 +139,7 @@
 
       "/create": {
         "post": {
-          "description": "Create a movie",
+          "description": "Create a movie. This is a protected route. Requires a valid Auth0 login token.",
           "parameters": [
             {
               "name": "body",
@@ -188,7 +188,7 @@
 
     "/update/{id}": {
         "put": {
-            "description": "Update single movie by id (ie. 'avatar_2009'). Movie ID must be in the format 'Title_Year', where Title is case-insensitive, alphanumeric and at least 2 characters long, and Year is numeric, and between 1900 and the current year.",
+            "description": "Update single movie by id (ie. 'avatar_2009'). Requires a valid Auth0 login token. Movie ID must be in the format 'Title_Year', where Title is case-insensitive, alphanumeric and at least 2 characters long, and Year is numeric, and between 1900 and the current year.",
             "example":"'avatar_2009', 'Avatar_2009', 'AVATAR_2009'",
             "parameters": [
                 {
@@ -243,7 +243,7 @@
     },
     "/delete/{id}": {
       "delete": {
-        "description": "Delete a single movie by id (ie. 'avatar_2009'). Movie ID must be in the format 'Title_Year', where Title is case-insensitive, alphanumeric and at least 2 characters long, and Year is numeric, and between 1900 and the current year.",
+        "description": "Delete a single movie by id (ie. 'avatar_2009'). Requires a valid Auth0 login token. Movie ID must be in the format 'Title_Year', where Title is case-insensitive, alphanumeric and at least 2 characters long, and Year is numeric, and between 1900 and the current year.",
         "example":"'avatar_2009', 'Avatar_2009', 'AVATAR_2009'",
         "parameters": [
           {
