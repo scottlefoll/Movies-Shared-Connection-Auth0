@@ -18,7 +18,7 @@ routes.get('/', (req, res) => {
 
 routes.get('/logout', (req, res) => {
     console.log('in /logout');
-    const returnTo = encodeURIComponent('http://localhost:3000');
+    const returnTo = encodeURIComponent('https://cse341-spring23-w08-movies-shared.onrender.com');
     res.clearCookie('appSession');  // Replace 'cookie_name' with the name of your session cookie
     res.clearCookie('auth0.is.authenticated');  // Replace 'cookie_name' with the name of your session cookie
     res.clearCookie('ai_user');  // Replace 'cookie_name' with the name of your session cookie

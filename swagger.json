@@ -5,10 +5,10 @@
     "description": "CSE 331 W04 MongoDB Mongoose Movie API with Auth0",
     "version": "1.3.0"
   },
-  "host": "localhost:3000/",
+  "host": "https://cse341-spring23-w08-movies-shared.onrender.com",
   "basePath": "",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/": {
