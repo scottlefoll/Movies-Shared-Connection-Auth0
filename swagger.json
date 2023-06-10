@@ -5,7 +5,7 @@
     "description": "CSE 331 W04 MongoDB Mongoose Movie API with Auth0. All routes are publicly accessible except for /db, /profile, /create, /update, and /delete - these all require an Auth0 login token..",
     "version": "1.3.0"
   },
-  "host": "https://cse341-spring23-w08-movies-shared.onrender.com",
+  "host": "cse341-spring23-w08-movies-shared.onrender.com",
   "basePath": "",
   "schemes": [
     "https"
