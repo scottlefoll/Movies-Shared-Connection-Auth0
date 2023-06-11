@@ -5,7 +5,7 @@ const { requiresAuth, checkScopes} = require('../middleware/auth');
 const { validateMovieFields, validateMovieParamId } = require('../validators/movieValidator');
 const curr_year = new Date().getFullYear();
 
-
+// TEST ROUTE
 // Add the root route
 routes.get('/', (req, res) => {
     res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
