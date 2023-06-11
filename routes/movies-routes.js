@@ -10,9 +10,13 @@ routes.get('/', (req, res) => {
     res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
 });
 
-routes.get('/customLogout', (req, res) => {
-    console.log('in /customLogout');
-    // const returnTo = encodeURIComponent('https://cse341-spring23-w08-movies-shared.onrender.com');
+routes.get('/callback', (req, res) => {
+    console.log('in /callback');
+    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+});
+
+routes.get('/logoutComplete', (req, res) => {
+    console.log('in /logoutComplete');
     res.clearCookie('appSession');  // Replace 'cookie_name' with the name of your session cookie
     res.clearCookie('auth0.is.authenticated');  // Replace 'cookie_name' with the name of your session cookie
     res.clearCookie('ai_user');  // Replace 'cookie_name' with the name of your session cookie
@@ -20,7 +24,6 @@ routes.get('/customLogout', (req, res) => {
     res.clearCookie('auth0_compat');  // Replace 'cookie_name' with the name of your session cookie
     res.clearCookie('auth0-mf_compat');  // Replace 'cookie_name' with the name of your session cookie
     res.clearCookie('appSession');  // Replace 'cookie_name' with the name of your session cookie
-    // res.redirect(`https://dev-4f411zuqwxmob8zg.us.auth0.com/v2/logout?client_id=VKMpv9LYKZ9Re3WzK7kisYvTb0wElkZq&returnTo=${returnTo}`);
 });
 
 // Add the profile route
