@@ -11,7 +11,7 @@ function decodeToken(token) {
 const config = {
     authRequired: false,
     auth0Logout: true,
-    auth0LogoutUrl: process.env.AUTH0_LOGOUT_URL,
+    auth0LogoutUrl: '/custom-logout',
     secret: process.env.SECRET,
     baseURL: process.env.BASE_URL,
     clientID: process.env.CLIENT_ID,
