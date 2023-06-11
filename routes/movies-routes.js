@@ -25,12 +25,12 @@ routes.get('/logout', (req, res) => {
 });
 
 // Add the profile route
-routes.get('/profile', requiresAuth(), (req, res) => {
+routes.get('/profile', (req, res) => {
     console.log('in /profile');
     res.send(JSON.stringify(req.oidc.user));
 });
 
-routes.get('/db',  requiresAuth(), async (req, res, next) => {
+routes.get('/db',  async (req, res, next) => {
     console.log('in /db');
     try {
       const collection = await moviesController.getDBList();
