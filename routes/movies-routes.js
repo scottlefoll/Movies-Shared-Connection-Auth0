@@ -6,11 +6,6 @@ const { validateMovieFields, validateMovieParamId } = require('../validators/mov
 const curr_year = new Date().getFullYear();
 
 
-// Add the root route
-routes.get('/', (req, res) => {
-    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
-});
-
 // routes.get('/logout', (req, res) => {
 //     console.log('in /logout');
 //     req.oidc.logout();
