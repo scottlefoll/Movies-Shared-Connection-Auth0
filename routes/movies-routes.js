@@ -30,7 +30,7 @@ routes.get('/logout', (req, res) => {
 });
 
 // Add the profile route
-routes.get('/profile', (req, res) => {
+routes.get('/profile', requiresAuth(), (req, res) => {
     console.log('in /profile');
     res.send(JSON.stringify(req.oidc.user));
 });
