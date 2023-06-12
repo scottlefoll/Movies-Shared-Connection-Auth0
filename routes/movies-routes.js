@@ -7,7 +7,7 @@ const curr_year = new Date().getFullYear();
 
 // Add the root route
 routes.get('/', (req, res) => {
-    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+    res.send(req.oidc.isAuthenticated() ? 'Logged in - Auth0' : 'Logged out - Auth0');
 });
 
 routes.get('/callback', (req, res) => {
