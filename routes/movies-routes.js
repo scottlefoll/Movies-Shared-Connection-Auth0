@@ -12,11 +12,10 @@ routes.get('/', (req, res) => {
 
 routes.get('/callback', (req, res) => {
     console.log('in /callback');
-    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
 });
 
-routes.get('/logoutComplete', (req, res) => {
-    console.log('in /logoutComplete');
+routes.get('/logout', (req, res) => {
+    console.log('in /logout');
     res.clearCookie('appSession');  // Replace 'cookie_name' with the name of your session cookie
     res.clearCookie('auth0.is.authenticated');  // Replace 'cookie_name' with the name of your session cookie
     res.clearCookie('ai_user');  // Replace 'cookie_name' with the name of your session cookie
@@ -137,6 +136,7 @@ routes.get('/director/:name', [
 
 routes.post('/create',  requiresAuth(), validateMovieFields, async (req, res, next) => {
         console.log(req, 'in /movies/create route');
+        console.log(req.body, 'in /movies/create route');
         const result = validationResult(req);
         if (!result.isEmpty()) {
             return res.status(400).json({ errors: result.array() });
