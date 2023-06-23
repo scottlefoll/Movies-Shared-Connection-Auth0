@@ -1,26 +1,14 @@
-const { Movie, Genre, Director } = require('../models/movie');
+const { asset,  } = require('../models/asset');
 // genre and director models are imported in the movie model
 
 
-// GET /db
-async function getDBList(req, res) {
-    console.log('getDBList called');
+// GET /assets
+async function getAssets(req, res) {
+    console.log('getAssets called');
     try {
-      const result = await Movie.collection.conn.db.admin().listDatabases();
-      return result;
-    } catch (err) {
-        console.error(err);
-        throw err;
-    } 
-  }
-
-// GET /movies
-async function getMovies(req, res) {
-    console.log('getMovies called');
-    try {
-      const result = await Movie.find({});
+      const result = await Asset.find({});
       if (result.length === 0) {
-        throw { statusCode: 404, message: 'No movies found' };
+        throw { statusCode: 404, message: 'No assets found' };
       }
       return result;
     } catch (err) {
@@ -32,14 +20,15 @@ async function getMovies(req, res) {
     }
   }
 
-// GET /movies/:id  ('gameofthrones_2011')
-async function getMovieById(req, res, id) {
-    console.log('getMovieById called');
+
+// GET /assets/:assetId  ('AS-004')
+async function getAssetById(req, res, id) {
+    console.log('getAssetById called');
     console.log('searching for id:', id);
     try {
       const result = await Movie.findOne({ _id: id });
       if (!result || result.length === 0) {
-        res.status(404).json({ message: 'No movie found for id: ' + id });
+        res.status(404).json({ message: 'No asset found for id: ' + id });
       }
       return result;
     } catch (err) {
@@ -49,93 +38,61 @@ async function getMovieById(req, res, id) {
     }
 }
 
-// GET /title/:title (ie. 'game of thrones', case insensitive)
-async function getMovieByTitle(req, res, title) {
-    console.log('getMovieByTitle called');
-    console.log('title:', title);
+async function getAssetByAssetId(req, res, id) {
+    console.log('getAssetById called');
+    console.log('searching for id:', id);
     try {
-      const result = await Movie.findOne({ Title: { $regex: new RegExp(`^${title}$`, 'i') } });
+      const result = await Movie.findOne({ id: id });
       if (!result || result.length === 0) {
-        res.status(404).send('No movie found matching title: ' + title);
+        res.status(404).json({ message: 'No asset found for Asset id: ' + id });
       }
       return result;
     } catch (err) {
       console.error(err);
-      res.status(500).send({ message: 'Internal server error' });
+      res.status(500).json({ message: 'Internal server error' });
       throw err;
-    }
-  }
-
-// GET /partial/:title (ie. 'game', case insensitive)
-async function getMoviesByPartialTitle(req, res, title) {
-    console.log('getMoviesByPartialTitle called');
-    try {
-      const result = await Movie.find({ Title: { $regex: title, $options: 'i' } }).sort({ Title: 1 });
-      if (!result || result.length === 0) {
-        res.status(404).send('No movies found matching partial title: ' + title);
-      }
-      return result;
-    } catch (err) {
-      console.error(err);
-      res.status(500).send({ message: 'Internal server error' });
-      throw err;
-    }
-  }
-
-    // GET /director/:name (ie. 'john cameron', case insensitive)
-  async function getMoviesByDirector(req, res, name) {
-    console.log('getContactsByDirector called');
-    console.log('name', name);
-    try {
-      const result = await Movie.find({ Director: { $regex: name, $options: 'i' } }).sort({ Director: 1 });
-      if (!result || result.length === 0) {
-        res.status(404).send('No movies found with Director name matching: ' + name);
-      } else {
-        return result;
-      }
-    } catch (err) {
-        console.error(err);
-        res.status(500).send({ message: 'Internal server error' });
-        throw err;
     }
 }
 
-async function createMovie(req, res) {
-    console.log('createMovie called');
+// GET /serialNumber/:serialNumber (ie. 'ASDFKE-783')
+async function getAssetByBrand(req, res, brand) {
+    console.log('getAssetByBrand called');
+    console.log('brand:', brand);
+    try {
+      const result = await Brand.find({ brand: brand });
+      if (!result || result.length === 0) {
+        res.status(404).send('No asset found matching brand: ' + brand);
+      }
+      return result;
+    } catch (err) {
+      console.error(err);
+      res.status(500).send({ message: 'Internal server error' });
+      throw err;
+    }
+  }
+
+
+async function createAsset(req, res) {
+    console.log('createAsset called');
     console.log('req.body:', req.body);
-    console.log('req.body.title:', req.body[0].Title);
-    console.log('req.body.year:', req.body[0].Year);
-    let _id2;
+    console.log('req.body.AssetId:', req.body[0].AssetId);
+    console.log('req.body.serialNumber:', req.body[0].serialNumber);
 
     try {
-      let Title = req.body[0].Title;
-      let Year = req.body[0].Year;
-      let Rated = req.body[0].Rated;
-      let Released = req.body[0].Released;
-      let Runtime = req.body[0].Runtime;
-      let Genre = req.body[0].Genre;
-      let Director = req.body[0].Director;
-      let Writer = req.body[0].Writer;
-      let Actors = req.body[0].Actors;
-      let Plot = req.body[0].Plot;
-      let Language = req.body[0].Language;
-      let Country = req.body[0].Country;
-      let Awards = req.body[0].Awards;
-      let Poster = req.body[0].Poster;
-      let Metascore = req.body[0].Metascore;
-      let imdbRating = req.body[0].imdbRating;
-      let imdbVotes = req.body[0].imdbVotes;
-      let imdbID = req.body[0].imdbID;
-      let Type = req.body[0].Type;
+      let assetId = req.body[0].AssetId;
+      let serialNumber = req.body[0].serialNumber;
+      let brand = req.body[0].brand;
+      let purchaseDate = req.body[0].purchaseDate;
+      let model = req.body[0].model;
+      let modelNum = req.body[0].modelNum;
+      let purchasePrice = req.body[0].purchasePrice;
+      let image = req.body[0].image;
+      let physicalDescription = req.body[0].physicalDescription;
+      let status = req.body[0].status;
+      let condition = req.body[0].condition;
+      let building = req.body[0].building;
+      let user = req.body[0].user;
 
-      // create a unique ID
-      _id2 = `${Title}_${Year}`.replace(/\s/g, '').toLowerCase();
-
-      console.log('33 create id2:', _id2);
-      console.log('33 create title:', Title);
-      console.log('33 create year:', Year);
-
-      // Create the movie object using the Movie model in Mongoose
       const newMovie = new Movie({
         _id: _id2,
         Title,
